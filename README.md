@@ -1,2 +1,0 @@
-# Morse-Code-Converter
-Morse-Talk helps non-verbal individuals communicate via Morse code. Arduino IDE code converts Morse to text on LCD. Python (VS Code) handles text-to-speech via Bluetooth and triggers GSM emergency calls. Built using ESP32, IR sensor, LCD, speaker, and GSM.
