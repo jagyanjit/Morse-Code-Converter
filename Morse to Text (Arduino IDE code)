@@ -3,7 +3,7 @@
 #include <map>
 
 #define IR_SENSOR_PIN   33
-#define BUTTON_PIN      32    // <— your added button on GPIO 32
+#define BUTTON_PIN      32   
 #define TAP_WINDOW      300
 #define CHAR_GAP        2000
 #define WORD_GAP        5000
@@ -50,7 +50,7 @@ void setup(){
 }
 
 void loop() {
-  handleButtonPress();       // check your push button first
+  handleButtonPress();       
   handleMorseInput();
 }
 
