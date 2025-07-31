@@ -4,7 +4,6 @@ import serial
 from twilio.rest import Client
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-# ===== List of different Twilio trial accounts and their verified recipients =====
 recipients = [
     {
         'account_sid': 'AC1c35d0ac4f9e5427975422f365bXXXXX',
@@ -21,14 +20,12 @@ recipients = [
     # Add more accounts below as needed
 ]
 
-# ===== Serial port configuration =====
 PORT = 'COM7'
 BAUD = 115200
 
 ser = serial.Serial(PORT, BAUD, timeout=1)
 time.sleep(2)  # Let ESP32 reset
 
-# ===== Initialize TTS engine =====
 engine = pyttsx3.init()
 engine.setProperty('rate', 150)
 
