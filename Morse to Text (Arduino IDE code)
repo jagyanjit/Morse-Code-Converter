@@ -33,7 +33,6 @@ int prevSensorValue = HIGH;
 unsigned long lastDebounceTime = 0;
 const unsigned long debounceDelay = 50;
 
-// remember last button state for edge‐detect
 bool lastButtonState = HIGH;
 
 void setup(){
@@ -54,7 +53,6 @@ void loop() {
   handleMorseInput();
 }
 
-// Fires the call/SMS trigger
 void triggerCall(const String & reason) {
   Serial.println("CALL_TRIGGERED");
   lcd.clear();
@@ -66,7 +64,6 @@ void triggerCall(const String & reason) {
   updateDisplay();
 }
 
-// Detect a button‐down event and trigger immediately
 void handleButtonPress() {
   bool btn = digitalRead(BUTTON_PIN);
   if (btn == LOW && lastButtonState == HIGH) {
@@ -76,7 +73,6 @@ void handleButtonPress() {
   lastButtonState = btn;
 }
 
-// Your existing morse logic
 void handleMorseInput() {
   int sensorValue = digitalRead(IR_SENSOR_PIN);
   unsigned long currentTime = millis();
@@ -85,7 +81,6 @@ void handleMorseInput() {
     lastDebounceTime = currentTime;
   }
   if ((currentTime - lastDebounceTime) > debounceDelay) {
-    // measure tap
     if (sensorValue == LOW && !measuringTap) {
       tapStartTime = currentTime;
       measuringTap = true;
@@ -98,7 +93,6 @@ void handleMorseInput() {
       updateDisplay();
     }
 
-    // char / word gap
     if (sensorValue == HIGH && morseCode.length() > 0 && !measuringTap) {
       unsigned long gap = currentTime - lastSignalTime;
       if (gap >= CHAR_GAP && gap < WORD_GAP) {
@@ -113,7 +107,6 @@ void handleMorseInput() {
       }
     }
 
-    // end‐of‐sentence gap: now trigger if Y *or* button was just pressed
     if ( (currentTime - lastSignalTime) >= SENTENCE_GAP && decodedMessage.length()>0 ) {
       if (decodedMessage == "Y") {
         triggerCall("Sent: Y");
@@ -131,7 +124,7 @@ void handleMorseInput() {
         delay(1500);
         updateDisplay();
       }
-      // reset
+
       decodedMessage = "";
       morseCode      = "";
       lcd.clear();
